@@ -1,0 +1,23 @@
+{
+  "name": "detection",
+  "version": "1.0.0",
+  "description": "none",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "mongodb": "^2.2.31",
+    "mongoose": "^4.11.10",
+    "mongoose-timestamp": "^0.6.0",
+    "mongoose-unique-validator": "^1.0.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
