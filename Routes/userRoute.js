@@ -1,14 +1,12 @@
-module.exports = function(app) {
-  var userController = require('../Controllers/userController');
+module.exports = function (app) {
+    var userController = require('../Controllers/userController');
+    var express = require('express');
+    var router = express.Router();
 
-  // todoList Routes
-  app.route('/addUser')
-    .post(userController.addUser);
+    app.route('/login')
+        .post(userController.login);
 
-  // app.route('/users/:userid')
-  //   .get(userController.deviceList);
+    app.route('/addUser')
+        .post(userController.addUser);
 
-  // app.route('/devices/:userid')
-  //   .put(userController.addDevice)
-  //   .delete(userController.removeDevice);
 };

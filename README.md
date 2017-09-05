@@ -13,10 +13,18 @@
     - npm install mongoose --save //For interacting mongoDB
     - npm install --save mongoose-timestamp
     - npm install --save mongoose-unique-validator
+    - npm install --save morgan jsonwebtoken bcrypt
 
 
 
-
-======================================= MongoDB Command =======================================
+============== MongoDB Command =================
 1. show dbs //To show all database
 2. use database //To switch/create database
+
+==================== APIs ======================
+1. /addUser
+2. /addDevice
+3. /removeDevice  //to remove from user list
+4. /getDeviceStatus
+5. /updateDeviceStatus
+6. /fetchDetails

@@ -12,10 +12,13 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
+    "jsonwebtoken": "^7.4.3",
     "mongodb": "^2.2.31",
     "mongoose": "^4.11.10",
     "mongoose-timestamp": "^0.6.0",
-    "mongoose-unique-validator": "^1.0.5"
+    "mongoose-unique-validator": "^1.0.5",
+    "morgan": "^1.8.2",
+    "password-hash": "^1.2.2"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"

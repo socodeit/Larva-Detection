@@ -9,6 +9,10 @@ var timestamps = require('mongoose-timestamp');
 
 //Schema
 var userSchema = new Schema({
+    type: {
+      type: Number,
+      required: true
+    },
     userId: {
         type: String,
         required: true,
