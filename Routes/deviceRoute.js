@@ -7,7 +7,7 @@ module.exports = function (app) {
     // app.route('/getDeviceStatus')
     //     .get(deviceController.getDeviceStatus);
 
-    app.route('/updateDeviceStatus')
+    app.route('/updateDeviceStatus/:deviceSecret/:status')
         .post(deviceController.updateDeviceStatus);
 
     router.use(function (req,res,next) {

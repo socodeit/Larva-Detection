@@ -91,14 +91,15 @@ exports.addDevice = function (req,res) {
 
 exports.updateDeviceStatus = function (req,res) {
 
-    Device.findOne({deviceSecret:req.body.deviceSecret}, function (err,device) {
+    console.log(req.params.deviceSecret);
+    Device.findOne({deviceSecret:req.params.deviceSecret}, function (err,device) {
        if(err) {
            res.json({error:true,message:"Something went wrong.",error_details:err});
        } else {
            if(!device) {
                res.json({error:true,message:"Device not found."});
            } else {
-               device.status = req.body.status;
+               device.status = req.params.status;
                device.save(function (err) {
                    if (err) {
                        res.json({error: true, message: "Unable to update", error_details: err});
