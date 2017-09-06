@@ -15,7 +15,7 @@
     - npm install --save mongoose-unique-validator
     - npm install --save morgan jsonwebtoken bcrypt
     - npm install --save winston //For logging purposes : https://stackoverflow.com/a/40906364
-
+    - npm install --save forever
 
 ============== MongoDB Command =================
 1. show dbs //To show all database
