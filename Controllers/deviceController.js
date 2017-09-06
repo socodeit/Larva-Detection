@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Device = mongoose.model('Devices');
 var User = mongoose.model('Users');
-
+var tools = require('../util/tools');
 const errorLog = require('../util/logger').errorlog;
 const successLog = require('../util/logger').successlog;
 
@@ -160,6 +160,62 @@ exports.getDeviceStatus = function (req,res) {
                         updatedAt:device.updatedAt,
                         status:device.status
                     }});
+            }
+        }
+    });
+};
+
+exports.removeDevice = function (req,res) {
+
+    Device.findOne({deviceId:req.body.deviceId},function (err,device) {
+        if (err) {
+            res.json({error: true, message: 'Something went wrong.', error_detail: err});
+            errorLog.error('removeDevice: Error while finding device. Details : ',err);
+        } else {
+            if (!device) {
+                res.json({error: true, message: 'No device found.'})
+                errorLog.error('removeDevice: No device with device id : ',req.body.deviceId);
+            } else {
+                User.findOne({userId: req.body.userId}, function (err, user) {
+                    if (err) {
+                        res.json({error: true, message: 'Something went wrong.', error_detail: err});
+                        errorLog.error('removeDevice: Error while verifying user. Error : ',err);
+                    } else {
+                        if (!user) {
+                            res.json({error: true, message: 'No user with this userId'});
+                            errorLog.error('removeDevice: No user with user id : ',req.body.userId);
+                        } else {
+                            tools.removeFromArray(user.devices,req.body.deviceId);
+                            user.save(function (err) {
+                                var response;
+                                if (err) {
+                                    res.json({
+                                        error: true,
+                                        message: "Something went wrong",
+                                        error_detail: err
+                                    });
+                                    errorLog.error('removeDevice: Error while saving user details',err);
+                                } else {
+                                    tools.removeFromArray(device.users,req.body.userId);
+                                    device.save(function (err) {
+                                        if (err) {
+                                            res.json({
+                                                error: true,
+                                                message: "Something went wrong",
+                                                error_detail: err
+                                            });
+                                            errorLog.error('removeDevice: Error while saving device details. Error : ',err);
+                                        } else {
+                                            res.json({error:false, message:"Device removed successfully."});
+                                            successLog.info('removeDevice: Device removed successfully');
+                                        }
+                                    })
+                                }
+                            });
+
+                        }
+                    }
+                });
             }
         }
     });

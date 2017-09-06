@@ -28,3 +28,7 @@
 4. /getDeviceStatus
 5. /updateDeviceStatus
 6. /fetchDetails
+
+
+===================== Logger ===================
+https://stackoverflow.com/questions/8393636/node-log-in-a-file-instead-of-the-console/40906364#40906364

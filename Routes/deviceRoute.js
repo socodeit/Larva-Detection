@@ -35,7 +35,7 @@ module.exports = function (app) {
 
     router.post('/getDeviceStatus',deviceController.getDeviceStatus);
 
-    // router.post('/removeDevice',deviceController.removeDevice);
+    router.post('/removeDevice',deviceController.removeDevice);
 
     app.use('/api',router);
 
