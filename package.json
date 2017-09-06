@@ -18,7 +18,9 @@
     "mongoose-timestamp": "^0.6.0",
     "mongoose-unique-validator": "^1.0.5",
     "morgan": "^1.8.2",
-    "password-hash": "^1.2.2"
+    "password-hash": "^1.2.2",
+    "winston": "^2.3.1",
+    "winston-daily-rotate-file": "^1.4.6"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"

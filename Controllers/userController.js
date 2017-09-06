@@ -3,14 +3,21 @@ var User = mongoose.model('Users');
 var passwordHash = require('password-hash');
 var jwt = require('jsonwebtoken');
 config = require('../config');
+
+const errorLog = require('../util/logger').errorlog;
+const successLog = require('../util/logger').successlog;
+
 exports.login = function (req,res) {
     User.findOne({userId: req.body.userId},function (err,user) {
         var response;
         if(err) {
             res.json({"error" : true, "message":"Unable to authenticate", "error_details":err});
+            errorLog('login: Unable to authenticate. Error : ',err);
         }
+
         if(!user) {
             res.json({"error" : true, "message":"Authentication failed. User not found."});
+            errorLog('login: user not found. UserId: ',req.body.userId);
         } else if(user) {
             if(!passwordHash.verify(req.body.password,user.password)) {
                 res.json({ "error": true, message: 'Authentication failed. Wrong password.' });
@@ -44,8 +51,10 @@ exports.addUser = function (req, res) {
         var response;
         if (err) {
             response = {error: true, message: "Unable to create account", "error_detail": err};
+            errorLog.error('addUser: Unable to create account. Error : ',err);
         } else {
             response = {error: false, message: "User added successfully"};
+            successLog.error('addUser: Account created succesfully.');
         }
         res.json(response);
     });

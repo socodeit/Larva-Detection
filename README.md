@@ -14,7 +14,7 @@
     - npm install --save mongoose-timestamp
     - npm install --save mongoose-unique-validator
     - npm install --save morgan jsonwebtoken bcrypt
-
+    - npm install --save winston //For logging purposes : https://stackoverflow.com/a/40906364
 
 
 ============== MongoDB Command =================
