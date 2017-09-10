@@ -33,7 +33,8 @@ exports.login = function (req,res) {
                             userId:user.userId,
                             name:user.name,
                             emailId:user.emailId,
-                            phoneNo:user.phoneNo
+                            phoneNo:user.phoneNo,
+                            type:user.type
                         }
                     });
                 } else {
