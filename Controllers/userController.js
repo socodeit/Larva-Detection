@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('Users');
+var Device = mongoose.model('Devices');
 var passwordHash = require('password-hash');
 var jwt = require('jsonwebtoken');
 config = require('../config');
@@ -11,33 +12,39 @@ exports.login = function (req,res) {
     User.findOne({userId: req.body.userId},function (err,user) {
         var response;
         if(err) {
-            res.json({"error" : true, "message":"Unable to authenticate", "error_details":err});
+            res.json({error : true, message:"Unable to authenticate", "error_details":err});
             errorLog('login: Unable to authenticate. Error : ',err);
         }
 
         if(!user) {
-            res.json({"error" : true, "message":"Authentication failed. User not found."});
+            res.json({error : true, message:"Authentication failed. User not found."});
             errorLog('login: user not found. UserId: ',req.body.userId);
         } else if(user) {
             if(!passwordHash.verify(req.body.password,user.password)) {
-                res.json({ "error": true, message: 'Authentication failed. Wrong password.' });
+                res.json({ error: true, message: 'Authentication failed. Wrong password.' });
             } else {
                 if(user.type == req.body.type) {
                     var token = jwt.sign(user, config.secret, {
                         expiresIn: 525600 // expires in 9 years
                     });
 
-                    res.json({"error": false, "message": "Authentication Successful", "token": token});
+                    res.json({error: false, message: "Authentication Successful", token: token,
+                        userDetails: {
+                            userId:user.userId,
+                            name:user.name,
+                            emailId:user.emailId,
+                            phoneNo:user.phoneNo
+                        }
+                    });
                 } else {
-                    res.json({"error" : true, "message":"Unable to authenticate"});
+                    res.json({error : true, message:"Unable to authenticate"});
                 }
             }
         }
     })
-}
+};
 
 exports.addUser = function (req, res) {
-
     //Creating a user object
     var user = new User;
     user.type = req.body.type;
@@ -58,5 +65,38 @@ exports.addUser = function (req, res) {
         }
         res.json(response);
     });
-}
+};
 
+exports.updateUser = function (req,res) {
+    User.findOne({userId:req.body.userId},function (err,user){
+        if(err) {
+            res.json({error:true,message:"Unable to update",error_details:err});
+            errorLog.error("updateUser: Unable to update user. Error : ",err);
+        } else {
+            if(!user) {
+                res.json({error:true,message:"User not found"});
+                errorLog.error("updateUser: Unable to find user. userId : ",userId);
+            } else {
+                if(req.body.name) {
+                    user.name = req.body.name;
+                }
+                if(req.body.emailId) {
+                    user.emailId = req.body.emailId;
+                }
+                if(req.body.phoneNo) {
+                    user.phoneNo = res.body.phoneNo;
+                }
+
+                user.save(function (err) {
+                    if(err) {
+                        res.json({error:true,message:'Unable to save user.',error_details:err});
+                        errorLog.error("updateUser: Unable to save user. Error : ",err);
+                    } else {
+                        res.json({error:false,message:"User details updated."});
+                        successLog.info("updateUser: User details updated. userId : ",user.userId);
+                    }
+                });
+            }
+        }
+    });
+};

@@ -22,13 +22,16 @@
 2. use database //To switch/create database
 
 ==================== APIs ======================
-1. /addUser
-2. /addDevice
-3. /removeDevice  //to remove from user list
-4. /getDeviceStatus
-5. /updateDeviceStatus
-6. /fetchDetails
 
+1. /addUser
+2. /login
+3. /user/updateUser
+4. /updateDeviceStatus/{device_secret}/{status}
+5. /createDevice
+6. /api/addDevice
+7. /api/removeDevice
+8. /api/getDeviceStatus
+9. /api/getDeviceList
 
 ===================== Logger ===================
 https://stackoverflow.com/questions/8393636/node-log-in-a-file-instead-of-the-console/40906364#40906364

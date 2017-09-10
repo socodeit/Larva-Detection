@@ -220,3 +220,37 @@ exports.removeDevice = function (req,res) {
         }
     });
 };
+
+exports.getDeviceList = function (req,res) {
+    User.findOne({userId:req.body.userId},function (err,user) {
+        if(err) {
+            res.json({error:true,message:"Something went wrong while search for user",error_details:err});
+            errorLog.error("getDeviceList: Something went wrong while search for user. Error : ",err);
+        } else {
+            if(!user) {
+                res.json({error:true,message:"Unable to find user"});
+                errorLog.error("getDeviceList: Unable to find user. userId : ",req.body.userId);
+            } else {
+                devicesId = user.devices;
+                Device.find({deviceId:{$in:devicesId}},function (err,devices) {
+                    if(err) {
+                        res.json({error:true,message:"Something went wrong while fetching devices",error_details:err});
+                        errorLog.error("getDeviceList: Something went wrong while fetching devices. Error : ",err);
+                    } else {
+                        var response = [];
+                        devices.forEach(function (device) {
+                            response.push({
+                                deviceId:device.deviceId,
+                                name: device.name,
+                                status: device.status,
+                                lastUpdated: device.updatedAt
+                            });
+                        });
+                        res.json({devices:response});
+                        successLog.info("getDeviceList: Device list sent.");
+                    }
+                });
+            }
+        }
+    });
+};
