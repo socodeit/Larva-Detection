@@ -8,7 +8,7 @@ module.exports = function (app) {
     //     .get(deviceController.getDeviceStatus);
 
     app.route('/updateDeviceStatus/:deviceSecret/:status')
-        .post(deviceController.updateDeviceStatus);
+        .get(deviceController.updateDeviceStatus);
 
     router.use(function (req,res,next) {
         var token = req.body.token || req.query.token || req.headers['x-access-token'];

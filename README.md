@@ -33,5 +33,4 @@
 8. /api/getDeviceStatus
 9. /api/getDeviceList
 
-===================== Logger ===================
-https://stackoverflow.com/questions/8393636/node-log-in-a-file-instead-of-the-console/40906364#40906364
+===================== Logger ===================   https://stackoverflow.com/questions/8393636/node-log-in-a-file-instead-of-the-console/40906364#40906364
