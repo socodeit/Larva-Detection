@@ -1,3 +1,5 @@
+This is code for server used in the B. Tech Project. APIs are used by the IOT device.
+
 1. Installing mongodb
     - https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-16-04 
     - https://www.liquidweb.com/kb/how-to-install-mongodb-on-ubuntu-14-04/
